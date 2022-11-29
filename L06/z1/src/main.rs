@@ -3,11 +3,12 @@ use std::collections::HashSet;
 fn simplify_code(code: &str) -> String {
     let mut simplified_code = String::new();
     let mut times = 0;
+
     for c in code.chars(){
         if c.is_ascii_alphabetic() {
             if times > 0 {
                 for _ in 0..(times - 1) {
-                simplified_code.push(simplified_code.chars().last().unwrap());
+                    simplified_code.push(simplified_code.chars().last().unwrap());
                 }  
             }
             times = 0;
@@ -75,7 +76,63 @@ pub fn execute(code: &str) -> String {
     })
     .collect::<Vec<_>>()
     .join("\r\n")
-    
-    
-//     simplified_code 
+}
+
+
+#[cfg(test)]
+macro_rules! expect_equal {
+  ($actual:expr, $expected:expr $(,)*) => {{
+    let actual = $actual;
+    let expected = $expected;
+    assert_eq!(actual, expected, "\ngot:\n{}\n\nexpected:\n{}\n", actual, expected);
+  }};
+}
+
+#[cfg(test)]
+mod tests {
+use super::execute;
+
+    #[test]
+    fn examples_in_description() {
+        expect_equal!(execute(""), "*");
+        expect_equal!(execute("FFFFF"), "******");
+        expect_equal!(
+            execute("FFFFFLFFFFFLFFFFFLFFFFFL"),
+            "******\r\n*    *\r\n*    *\r\n*    *\r\n*    *\r\n******",
+        );
+        expect_equal!(
+            execute("LFFFFFRFFFRFFFRFFFFFFF"),
+            "    ****\r\n    *  *\r\n    *  *\r\n********\r\n    *   \r\n    *   ",
+        );
+        expect_equal!(
+            execute("LF5RF3RF3RF7"),
+            "    ****\r\n    *  *\r\n    *  *\r\n********\r\n    *   \r\n    *   ",
+        );
+    }
+
+    #[test]
+    fn my_test_1() {
+        expect_equal!(execute("FLFLFLFLFLFL3F5RFRFRFRFRF"), "*******\r\n**   **");
+    }
+
+    #[test]
+    fn my_test_2() {
+        expect_equal!(execute("FLFRFLFRFLFR3F5FLFRFLFRFLFR"), "  *******\r\n **    **\r\n**    ** \r\n*    **  ");
+    }
+
+    #[test]
+    fn my_test_3() {
+        expect_equal!(execute("FL3F5R2F4R2F5L3F5RF2RF2RF2RF2RF"), "    **\r\n     *\r\n     *\r\n     *\r\n***  *\r\n* *  *\r\n******");
+    }
+
+    #[test]
+    fn my_test_4() {
+        expect_equal!(execute("L3F5L3F5FFRLRFFFFL2F4RF6"), "             *\r\n      *      *\r\n      *      *\r\n      *      *\r\n      *      *\r\n**************");
+    }
+
+    #[test]
+    fn my_test_5() {
+        expect_equal!(execute("FRF2RF3RF4RF5RF6RF7RF8RF9RF10"), "**********\r\n*        *\r\n* ****** *\r\n* *    * *\r\n* * ** * *\r\n* *  * * *\r\n* **** * *\r\n*      * *\r\n******** *\r\n         *\r\n         *");
+    }
+
 }

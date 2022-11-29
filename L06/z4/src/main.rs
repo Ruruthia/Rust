@@ -12,40 +12,37 @@ fn accum(s:&str)->String {
     s.chars().enumerate().map(|(i, c)| mumble(i, c)).collect::<Vec<String>>().join("-")
 }
 
-// use std::cmp;
 
-// fn longest_slide_down(pyramid: &[Vec<u16>]) -> u16 {
-// //     let floors = pyramid.len();
-// //     let nums = (floors + 1)*floors/2;
-// //     let mut vals = vec![pyramid[0][0]];
-// //     let  concated_pyramid = pyramid.concat();
-// //     for (i, v) in concated_pyramid[1..].iter().enumerate(){
-// //         if i > 0 {}
-// //         vals.push(cmp::max(vals[((i/2) + 1) as usize], vals[((i/2)) as usize]) + v)
-    
-// //     }
-// //     println!("{:?}", pyramid.concat());
-//     let mut vals = vec![pyramid[0][0]];
-//     for (i, v) in pyramid[1..].iter().enumerate(){
-//         for (j, k) in v.iter().enumerate() {
-//             if j == 0 {
-//                 println!("start");
-//                 println!("{:?}", ((2_u32.pow((i +1) as u32) + (j as u32))/2) as usize);
-//                 vals.push(vals[((2_u32.pow((i ) as u32)  + (j as u32))/2) as usize]);
-//             }
-//             else if j == (i + 1)  {
-//                 println!("end");
-//                 println!("{:?}", ((2_u32.pow((i +1) as u32) -1 + (j as u32))/2) as usize);
-//                 vals.push(vals[((2_u32.pow((i + 1) as u32) -1 + (j as u32))/2) as usize]);
-//             }
-//             else {
-//                 println!("mid");
-//                 println!("{:?}", ((2_u32.pow((i+1) as u32) -1 + (j as u32))/2) as usize);
-//                 vals.push(cmp::max(vals[((2_u32.pow((i) as u32) -1 + (j as u32))/2) as usize], vals[((2_u32.pow((i) as u32) + (j as u32))/2) as usize]) + k)
-//             }
-//         }
-// //         
-//     }
-//     println!("{:?}",vals);
-//     8
-// }
+#[test]
+fn basic_tests() {
+  assert_eq!(accum("ZpglnRxqenU"), "Z-Pp-Ggg-Llll-Nnnnn-Rrrrrr-Xxxxxxx-Qqqqqqqq-Eeeeeeeee-Nnnnnnnnnn-Uuuuuuuuuuu");
+  assert_eq!(accum("NyffsGeyylB"), "N-Yy-Fff-Ffff-Sssss-Gggggg-Eeeeeee-Yyyyyyyy-Yyyyyyyyy-Llllllllll-Bbbbbbbbbbb");
+  assert_eq!(accum("MjtkuBovqrU"), "M-Jj-Ttt-Kkkk-Uuuuu-Bbbbbb-Ooooooo-Vvvvvvvv-Qqqqqqqqq-Rrrrrrrrrr-Uuuuuuuuuuu");
+  assert_eq!(accum("EvidjUnokmM"), "E-Vv-Iii-Dddd-Jjjjj-Uuuuuu-Nnnnnnn-Oooooooo-Kkkkkkkkk-Mmmmmmmmmm-Mmmmmmmmmmm");
+  assert_eq!(accum("HbideVbxncC"), "H-Bb-Iii-Dddd-Eeeee-Vvvvvv-Bbbbbbb-Xxxxxxxx-Nnnnnnnnn-Cccccccccc-Ccccccccccc");
+}
+
+#[test]
+fn my_test_1() {
+    assert_eq!(accum(""), "");
+}
+
+#[test]
+fn my_test_2() {
+    assert_eq!(accum("ABCDEFG"), "A-Bb-Ccc-Dddd-Eeeee-Ffffff-Ggggggg");
+}
+
+#[test]
+fn my_test_3() {
+    assert_eq!(accum("abcdefg"), "A-Bb-Ccc-Dddd-Eeeee-Ffffff-Ggggggg");
+}
+
+#[test]
+fn my_test_4() {
+    assert_eq!(accum("aBcDeFg"), "A-Bb-Ccc-Dddd-Eeeee-Ffffff-Ggggggg");
+}
+
+#[test]
+fn my_test_5() {
+    assert_eq!(accum("AbCdEfG"), "A-Bb-Ccc-Dddd-Eeeee-Ffffff-Ggggggg");
+}
